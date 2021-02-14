@@ -1,0 +1,162 @@
+body {
+  background: #FBFCFC;
+  color: #333333;
+  margin-top: 5rem;
+  margin-right: 10rem;
+}
+
+h1{
+  margin-left: 10px;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #10393C;
+}
+
+ul {
+  margin: 0;
+}
+
+.games-heading{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 55px;
+}
+
+/* nav bar background */
+.bg-steel {
+  background-color: #C22E34;
+}
+
+/*individual nav bar entitiy color (non hover)*/
+.site-header .navbar-nav .nav-link {
+  color: #F2F3F4;
+}
+
+/*individual nav bar entitiy color (hover)*/
+.site-header .navbar-nav .nav-link:hover {
+  color: #A49A9A;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+img {
+  max-width: 90px;
+  max-height: 90px;
+}
+
+/* individual game background & other attributes */
+.content-section {
+  width: 1100px;
+  height: 110px;
+  background: #ffff;
+  padding: 10px 20px;
+  border: 3px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+/*game titles*/
+.article-title {
+  color: #10393C;
+  margin-top: 5px;
+  display: block;
+  width: 500px;
+  height: 35px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+a.article-title:hover {
+  color: #5A5A5A;
+  text-decoration: none;
+}
+
+/* Words that go above scores */
+.score-descriptor{
+  text-align: center;
+  vertical-align: middle;
+
+}
+
+/*the physical scores and circle borders*/
+.review-number{
+  font-size: xx-large;
+  font-weight: 1000;
+  color: #666;
+  border-radius: 50%;
+  border: 2px solid #000000;
+  background: #000000;
+  font-family: "Copperplate";
+  height: 50px;
+  width: 80px;
+  margin-left: 76px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/*garbage-icon*/
+.garbage{
+  width: 30px;
+  height: 30px;
+  margin-left: 200px;
+  position: relative;
+  display: inline-block;
+}
+
+.garbage .img-top{
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.garbage:hover .img-top{
+  display: inline;
+}
+
+.navbar-img {
+  height: 55px;
+  width: 55px;
+}
+
+/*game images*/
+.article-img {
+  height: 110px;
+  width: 200px;
+  margin-top: -2px;
+  margin-left: -10px;
+  margin-right: 5px;
+  border-radius: 5px;
+
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
