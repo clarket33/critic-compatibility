@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import GameReview
+from .models import GameReview, Game
+from .tables import GameTable
+from django.views.generic import ListView
+from django_tables2 import SingleTableView
 
 
 # Create your views here.
@@ -12,7 +15,12 @@ def home(request):
 		'gameReviews': request.user.gamereview_set.all()
 	}
 	return render(request, 'games/home.html', context)
-	
+
+class SearchListView(SingleTableView):
+	model = Game
+	table_class = GameTable
+	template_name='games/search.html'
+
 
 '''
 Platforms:

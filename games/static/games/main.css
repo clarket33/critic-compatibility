@@ -68,6 +68,12 @@ img {
   margin-left: 360px;
 }
 
+/*displaying pro pic choices*/
+.propic-options {
+  width: 68px;
+  height: 45px;
+}
+
 /*game titles*/
 .article-title {
   color: #10393C;
