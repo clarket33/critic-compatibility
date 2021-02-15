@@ -1,14 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .models import GameReview
 
 
 # Create your views here.
+@login_required
 def home(request):
+	
 	context = {
-		'gameReviews': GameReview.objects.all()
+		'gameReviews': request.user.gamereview_set.all()
 	}
 	return render(request, 'games/home.html', context)
+	
 
 '''
 Platforms:

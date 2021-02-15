@@ -24,19 +24,28 @@
 	<header class="site-header">
 	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
 	<div class="container">
-	  <img class ="rounded-circle navbar-img" style="margin-left: -45px;" src='https://static.metacritic.com/images/products/games/9/eebb2509d46dbd97c612f634270d37dd-98.jpg'>
-	  <a class="navbar-brand mr-4" style="margin-left: 5px;"href="{% url 'games-home' %}">Critic Compatibility</a>
+	 	
+	  <a class="navbar-brand mr-4" href="{% url 'games-home' %}">Critic Compatibility</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 	  <span class="navbar-toggler-icon"></span>
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarToggle">
 	    <div class="navbar-nav mr-auto">
-	      <a class="nav-item nav-link" href="{% url 'games-home' %}">My Games</a>
+	    	{% if user.is_authenticated %}
+	      		<a class="nav-item nav-link" href="{% url 'games-home' %}">My Games</a>
+	      	{% else %}
+	      	{% endif %}
+	    	
 	    </div>
 	    <!-- Navbar Right Side -->
 	    <div class="navbar-nav">
-	      <a class="nav-item nav-link" href="#">Login</a>
-	      <a class="nav-item nav-link" href="#">Register</a>
+	    	{% if user.is_authenticated %}
+	    		<a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+	    		<a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+	    	{% else %}
+		      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+		      <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+		      {% endif %}
 	    </div>
 	  </div>
 	</div>
@@ -48,7 +57,15 @@
 	<main role="main" class="container">
 	  <div class="row">
 	    <div class="col-md-8">
-	      {% block content %}{% endblock %}
+	    {% if messages%}
+	    	{%for message in messages%}
+	    		<div style="margin-left: 360px; width: 550px;"class="alert alert-{{ message.tags }}">
+	    			{{message}}
+	    		</div>
+	    	{%endfor%}
+	    {%endif%}
+	    {% block content %}{% endblock %}
+	    
 	    </div>
 	   	<!--
 	    <div class="col-md-4">

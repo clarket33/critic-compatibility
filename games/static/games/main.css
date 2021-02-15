@@ -57,6 +57,17 @@ img {
   margin-bottom: 20px;
 }
 
+/*for forms*/
+.form-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  width: 550px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  margin-left: 360px;
+}
+
 /*game titles*/
 .article-title {
   color: #10393C;
@@ -120,7 +131,7 @@ a.article-title:hover {
 
 .navbar-img {
   height: 55px;
-  width: 55px;
+  width: 85px;
 }
 
 /*game images*/
