@@ -1,0 +1,24 @@
+{% extends "games/base.html" %}
+{% block content %}
+	<div style="height: 400px; width: 1200px; text-align: center;">
+		<div>
+	  		<img src="{{ game_review.image_src }}">
+	  	</div>
+		
+		<div>
+		  <h4><a target="_blank">Delete '{{ game_review.game_name }}' Score?</a></h4>
+		  <div>
+		      <a>{{ game_review.platform }}</a>
+		      <img src="/media/platforms/{{ game_review.platform }}.png">
+		      <small class="text-muted">{{ game_review.release_date}}</small>
+		  </div>
+		</div>
+		 <!-- Form to delete an entry -->
+	    <form method="POST" style="width: 50%; margin-left: 300px; margin-top: 20px;">
+			{% csrf_token %}
+	        <button class="btn btn-outline-danger" type="submit">Delete</button>
+	        <a href="{% url 'games-home' %}" class="btn btn-outline-dark">Cancel</a>
+	        
+	    </form> 
+	</div>
+{% endblock content %}

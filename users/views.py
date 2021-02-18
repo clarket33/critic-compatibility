@@ -5,6 +5,12 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 # Create your views here.
 def register(request):
+
+	if request.user.is_authenticated:
+		messages.error(request, f"Must be logged out to access this page")
+		return redirect('games-home')
+	
+
 	if request.method == 'POST':
 		form = UserRegisterForm(request.POST)
 		if form.is_valid():
@@ -18,7 +24,7 @@ def register(request):
 
 @login_required
 def profile(request):
-	print("Before validation checks: ", request.user.username)
+	
 	if request.method == 'POST':
 		u_form = UserUpdateForm(request.user, request.POST, instance=request.user)
 		p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)

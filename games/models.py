@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+import django_filters
+from django_filters.views import FilterView
+from django_tables2.views import SingleTableMixin
+
 
 class Game(models.Model):
 	game_name = models.CharField(max_length=100)

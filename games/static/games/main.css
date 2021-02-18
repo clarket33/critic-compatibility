@@ -16,6 +16,12 @@ ul {
   margin: 0;
 }
 
+
+#id_user_score {
+    width: 120px;
+    margin-left: 240px;
+}
+
 .games-heading{
   margin-top: 10px;
   margin-bottom: 20px;
@@ -66,6 +72,17 @@ img {
   border-radius: 3px;
   margin-bottom: 20px;
   margin-left: 360px;
+}
+
+/*for add game form*/
+.search-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  width: 800px;
+  border: 3px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  margin-left: 235px;
 }
 
 /*displaying pro pic choices*/
