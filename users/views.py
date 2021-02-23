@@ -7,7 +7,6 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 def register(request):
 
 	if request.user.is_authenticated:
-		messages.error(request, f"Must be logged out to access this page")
 		return redirect('games-home')
 	
 

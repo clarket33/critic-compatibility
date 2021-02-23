@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import GameReview, Game
+from .models import GameReview, Game, CriticProfile, CriticReview
 from .filters import GameFilter
 from .tables import GameTable
 from django.views.generic import DetailView
@@ -10,8 +10,9 @@ from django_tables2.views import SingleTableMixin
 from .forms import GameReviewAddForm
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from collections import OrderedDict
 
-# Create your views here.
+#user Game review inventory
 @login_required
 def home(request):
 	
@@ -20,8 +21,7 @@ def home(request):
 	}
 	return render(request, 'games/home.html', context)
 
-
-	
+#table view of the games	
 class FilteredSearchListView(SingleTableMixin, FilterView):
     table_class = GameTable
     model = Game
@@ -29,6 +29,7 @@ class FilteredSearchListView(SingleTableMixin, FilterView):
 
     filterset_class = GameFilter
 
+#user is adding a game review
 @login_required
 def gameAdd(request, pk):
 	#obtain game being added
@@ -60,6 +61,7 @@ def gameAdd(request, pk):
 
 	return render(request, 'games/game_detail.html', context)
 
+#user is deleting a game review
 @login_required
 def deleteGame(request, pk):
 
@@ -81,9 +83,64 @@ def deleteGame(request, pk):
 	}
 	return render(request, 'games/delete_game.html', context)
 
+#match user with compatible critics
+@login_required
+def criticMatch(request):
+
+	my_games = request.user.gamereview_set.all()
+	compat = dict()
+	
+	for gameR in my_games:
+		
+		for critReview in CriticReview.objects.filter(game_name=gameR.game_name).filter(platform=gameR.platform):
+			curCrit = critReview.critic.critic_name
+
+			if (curCrit) in compat:
+				compat[curCrit][0] += abs(critReview.critic_score-gameR.user_score)
+				compat[curCrit][1] += 1
+			else:
+				compat[curCrit] = [abs(critReview.critic_score-gameR.user_score),1]
+
+
+	#print(compat)
+
+
+	for key in list(compat):
+		#subject to change, sets min mutual games (maybe allow for user input)
+		if compat[key][1] <= 4:
+			del compat[key]
+			continue
+		compat[key][0] = round(compat[key][0] / compat[key][1], 2)
 
 
 
+
+	odCompat = OrderedDict(sorted(compat.items(), key=lambda x:x[1]))
+
+	i = 0;
+	for key, value in odCompat.items():
+		if i > 5:
+			break
+		if value[1] >= 5:
+			print(key, value)
+			i+=1
+
+
+	while len(odCompat) > 10:
+		odCompat.popitem()
+
+		
+	
+			
+
+	print(odCompat)
+
+	context = {
+		'compatRanks': odCompat,
+		'gameAmnt': len(request.user.gamereview_set.all())
+	}
+
+	return render(request, 'games/critic_match.html', context)
 '''
 Platforms:
 {'Xbox', 'Game Boy Advance', 'Xbox 360', 'PlayStation Vita',

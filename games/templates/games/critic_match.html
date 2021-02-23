@@ -1,0 +1,31 @@
+{% extends "games/base.html" %}
+{% block content %}
+	
+	
+	<div style="height: 400px; width: 1200px; text-align: center;">
+		<div>
+			<h6>Critic Match</h6>
+		</div>
+<!--
+		<form>
+		  <label for="mutual">Minimum Mutual Games Required (3-{{gameAmnt}}):</label><br>
+		  <input type="number" id="mutual" name="mutualGames" min="3" max={{gameAmnt}}><br><br>
+		  <button class="btn btn-outline-info" type="submit" value="Submit">Apply</button>
+		</form>
+	-->
+		<div>
+			{% for key, value in compatRanks.items %}
+				{% if forloop.first %}
+					<a style="color: #ffd700; font-size: 100px;">{{key}}, {{value}}</a><br>
+				{% elif forloop.counter == 2 %}
+					<a style="color: #C0C0C0; font-size: 70px;">{{key}}, {{value}}</a><br>
+				{% elif forloop.counter == 3 %}
+					<a style="color: #CD7F32; font-size: 40px;">{{key}}, {{value}}</a><br>
+				{% else %}
+					<a style="color: #000000; font-size: 20px;">{{key}}, {{value}}</a><br>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock content %}
