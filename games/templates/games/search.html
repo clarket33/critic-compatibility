@@ -4,6 +4,9 @@
 {% block content %}
 	
 	<body>
+		<div style="float: left; text-align: left;">
+			<a style="margin-left: 150px; margin-top: 15px;" class="btn btn-outline-secondary" href="{% url 'games-home' %}" role="button"> < Back </a>
+		</div>
 		<div class="search-section">
 			{% if filter %}
 			    <form action="" method="get" class="form form-inline" style="margin-left: 90px;">
@@ -12,7 +15,7 @@
 			    </form>
 			{% endif %}
 			
-			{% render_table table %}
+			{% render_table table "gameTable.html" %}
 		
 	    </div>
     </body>

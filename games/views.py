@@ -11,13 +11,22 @@ from .forms import GameReviewAddForm
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from collections import OrderedDict
+from django.template.defaulttags import register
+from django.core.paginator import Paginator
+
+
 
 #user Game review inventory
 @login_required
 def home(request):
-	
+	gameReviews = request.user.gamereview_set.all()
+	paginator = Paginator(gameReviews, 10)
+
+	page_number = request.GET.get('page')
+	page_obj = paginator.get_page(page_number)
+
 	context = {
-		'gameReviews': request.user.gamereview_set.all()
+		'gameReviews': page_obj
 	}
 	return render(request, 'games/home.html', context)
 
@@ -26,7 +35,6 @@ class FilteredSearchListView(SingleTableMixin, FilterView):
     table_class = GameTable
     model = Game
     template_name ='games/search.html'
-
     filterset_class = GameFilter
 
 #user is adding a game review
@@ -36,8 +44,8 @@ def gameAdd(request, pk):
 	g = get_object_or_404(Game, pk=pk)
 
 	#check if game has already been added
-	if len(GameReview.objects.filter(game_name=g.game_name).filter(release_date=g.release_date)
-		.filter(platform=g.platform).filter(owner=request.user)) != 0:
+	if len(GameReview.objects.filter(game_name=g.game_name).filter(platform=g.platform)
+		.filter(owner=request.user)) != 0:
 		messages.error(request, f"You've already scored '{g.game_name}'")
 		return redirect('games-search')
 
@@ -74,6 +82,7 @@ def deleteGame(request, pk):
 
 	if request.method == "POST":
 		gr.delete()
+		messages.success(request, f"Deleted Score for '{gr.game_name}'!")
 		return redirect('games-home')
 
 	
@@ -86,6 +95,12 @@ def deleteGame(request, pk):
 #match user with compatible critics
 @login_required
 def criticMatch(request):
+
+
+	@register.filter
+	def get_item(dictionary, key):
+		return dictionary.get(key)
+
 
 	my_games = request.user.gamereview_set.all()
 	compat = dict()
@@ -117,6 +132,7 @@ def criticMatch(request):
 
 	odCompat = OrderedDict(sorted(compat.items(), key=lambda x:x[1]))
 
+	'''
 	i = 0;
 	for key, value in odCompat.items():
 		if i > 5:
@@ -124,20 +140,28 @@ def criticMatch(request):
 		if value[1] >= 5:
 			print(key, value)
 			i+=1
-
+	'''
 
 	while len(odCompat) > 10:
 		odCompat.popitem()
 
+	profiles = dict()
+	for key, value in odCompat.items():
+		profiles[key] = CriticProfile.objects.filter(critic_name=key).first().critic_src
+
+		'''
+	for key, value in profiles.items():
+		print(key, value)
 		
-	
+	'''
 			
 
-	print(odCompat)
+	#print(odCompat)
 
 	context = {
 		'compatRanks': odCompat,
-		'gameAmnt': len(request.user.gamereview_set.all())
+		'gameAmnt': len(request.user.gamereview_set.all()),
+		'criticProfs': profiles
 	}
 
 	return render(request, 'games/critic_match.html', context)

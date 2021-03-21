@@ -7,6 +7,6 @@ urlpatterns = [
     path('', views.home, name='games-home'),
     path('search', login_required(FilteredSearchListView.as_view()), name='games-search'),
     path('search/<int:pk>/', views.gameAdd, name='game-add'),
-    path('critic-match/', views.criticMatch, name='critic=match'),
+    path('critic-match/', views.criticMatch, name='critic-match'),
     path('<int:pk>/delete', views.deleteGame, name='game-delete')
 ]

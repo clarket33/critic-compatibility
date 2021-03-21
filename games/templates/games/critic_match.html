@@ -2,9 +2,9 @@
 {% block content %}
 	
 	
-	<div style="height: 400px; width: 1200px; text-align: center;">
-		<div>
-			<h6>Critic Match</h6>
+	<div style="background-image: url(/media/trophies/awardBackground.png); margin-left: 50px; width: 1150px; text-align: center;">
+		<div style="height: 50px;">
+			<h6>It's a Match!</h6>
 		</div>
 <!--
 		<form>
@@ -16,16 +16,94 @@
 		<div>
 			{% for key, value in compatRanks.items %}
 				{% if forloop.first %}
-					<a style="color: #ffd700; font-size: 100px;">{{key}}, {{value}}</a><br>
+				
+					<div style="text-align: center; height: 364.5px; position: relative">
+						<img style="margin-left: 225px; height: 289.5px; width: 300px; float: left" src="/media/trophies/GoldTrophy.png"/>
+						{% if key|length > 16 %}
+							<div style="margin-right: 175px; position: absolute; top: 7%; left: 50%;">
+						{% else %}
+							<div style="margin-right: 175px; position: absolute; top: 12%; left: 50%;">
+						{% endif %}
+							<a class="critic-title" href="{{ criticProfs|get_item:key}}" target="_blank" style="font-size: 42px;">{{key}}</a>
+						
+							<br>
+							<div style="margin-top: 0px">
+								<p1> Mutual Games Scored: </p1>
+								<a1 class="critic-data">{{value.1}}</a1>
+								<br>
+								<p1> Scores within </p1>
+								<a1 class="critic-data">{{value.0}} pts</a1>
+								<p1> on avg</p1>
+							</div>
+						</div>
+					</div>
+				
+				
 				{% elif forloop.counter == 2 %}
-					<a style="color: #C0C0C0; font-size: 70px;">{{key}}, {{value}}</a><br>
+				
+					<div style="text-align: center; height: 268px; position: relative;">
+						<img style="margin-left: 300px; height: 193px; width: 200px; float: left" src="/media/trophies/SilverTrophy.png">
+						{% if key|length > 16 %}
+							<div style="margin-right: 250px; position: absolute; top: 0%; left: 50%;">
+						{% else %}
+							<div style="margin-right: 250px; position: absolute; top: 8%; left: 50%;">
+						{% endif %}
+							<a class="critic-title" href="{{ criticProfs|get_item:key}}" target="_blank" style="font-size: 35px;">{{key}}</a>
+							<br>
+							
+							<div style="margin-top: 0px">
+								<p1> Mutual Games Scored: </p1>
+								<a1 class="critic-data1">{{value.1}}</a1>
+								<br>
+								<p1> Scores within </p1>
+								<a1 class="critic-data1">{{value.0}} pts</a1>
+								<p1> on avg</p1>
+							</div>
+						</div>
+					</div>
+				
+				
 				{% elif forloop.counter == 3 %}
-					<a style="color: #CD7F32; font-size: 40px;">{{key}}, {{value}}</a><br>
+				
+					<div style="text-align: center; height: 219px; position: relative;">
+						<img style=" margin-left: 350px; height:144.74px; width: 150px; float: left" src="/media/trophies/BronzeTrophy.png">
+						{% if key|length > 16 %}
+							<div style="margin-right: 300px; position: absolute; top: 0%; left: 50%;">
+						{% else %}
+							<div style="margin-right: 300px; position: absolute; top: 5%; left: 50%;">
+						{% endif %}
+							<a class="critic-title" href="{{ criticProfs|get_item:key}}" target="_blank" style="font-size: 25px;">{{key}}</a>
+							<br>
+							
+							<div style="margin-top: 5px">
+								<p1> Mutual Games Scored: </p1>
+								<a1 class="critic-data2">{{value.1}}</a1>
+								<br>
+								<p1> Scores within </p1>
+								<a1 class="critic-data2">{{value.0}} pts</a1>
+								<p1> on avg</p1>
+							</div>
+						</div>
+					</div>
+				
+				
 				{% else %}
-					<a style="color: #000000; font-size: 20px;">{{key}}, {{value}}</a><br>
+					<div style="width: 100%; height: 40px;">
+						<a1 style="color: #000000; font-size: 20px;">{{forloop.counter}}. </a1>
+						<a style="font-family: 'Trebuchet MS', sans-serif; color: #000000; font-size: 20px;" href="{{ criticProfs|get_item:key}}" target="_blank">{{key}}</a>
+						<a1 style="font-family: 'Trebuchet MS', sans-serif;color: #000000; font-size: 20px;"> (</a1>
+						<a style="font-family: 'Trebuchet MS', sans-serif; color: #8412a1; font-size: 25px;">{{value.1}}</a> 
+						<a1 style="color: #000000; font-size: 20px;"> mutual games, scores within </a1><a style="font-family: 'Trebuchet MS', sans-serif;color: #8412a1; font-size: 25px;">{{value.0}}</a>
+						<a1 style="color: #000000; font-size: 20px;"> pts on avg)</a1><br>
+					</div>
+				
 				{% endif %}
 			{% endfor %}
 		</div>
 	</div>
+	
 
 {% endblock content %}
+<!--
+	largest critic name: Playstation Official Magazine Australia
+	-->

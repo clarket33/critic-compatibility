@@ -16,6 +16,40 @@ ul {
   margin: 0;
 }
 
+/*critic match page*/
+a1{
+  font-family: 'Trebuchet MS', sans-serif;
+
+}
+/*critic match page*/
+p1{
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* on critic match page, help the data pop */
+.critic-data{
+    color: #8412a1;
+    font-size: 40px;
+    font-family: 'Trebuchet MS', sans-serif;
+    position: relative;
+     top: 10px;
+}
+
+.critic-data1{
+    color: #8412a1;
+    font-size: 30px;
+    font-family: 'Trebuchet MS', sans-serif;
+    position: relative;
+     top: 5px;
+}
+
+.critic-data2{
+    color: #8412a1;
+    font-size: 25px;
+    font-family: 'Trebuchet MS', sans-serif;
+    position: relative;
+     top: 4px;
+}
 
 #id_user_score {
     width: 120px;
@@ -47,10 +81,7 @@ ul {
   font-weight: 500;
 }
 
-img {
-  max-width: 90px;
-  max-height: 90px;
-}
+
 
 /* individual game background & other attributes */
 .content-section {
@@ -61,6 +92,14 @@ img {
   border: 3px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
+}
+
+.critic-display {
+  height: 250px;
+  background: #ffff;
+  padding: 30px 20px;
+  border-radius: 40px;
+  margin-bottom: 40px;
 }
 
 /*for forms*/
@@ -104,6 +143,18 @@ img {
 }
 
 a.article-title:hover {
+  color: #5A5A5A;
+  text-decoration: none;
+}
+
+/*game titles*/
+.critic-title {
+  color: #10393C;
+  font-family: 'Trebuchet MS', sans-serif;
+  
+}
+
+a.critic-title:hover {
   color: #5A5A5A;
   text-decoration: none;
 }
@@ -152,20 +203,24 @@ a.article-title:hover {
   display: inline;
 }
 
-.navbar-img {
-  height: 55px;
-  width: 85px;
-}
+
 
 /*game images*/
 .article-img {
-  height: 110px;
-  width: 200px;
+  height: 90px;
+  width: 90px;
   margin-top: -2px;
   margin-left: -10px;
   margin-right: 5px;
   border-radius: 5px;
+  max-width: 90px;
+  max-height: 90px;
 
+}
+
+.profile-img{
+   max-width: 90px;
+  max-height: 90px;
 }
 
 .article-metadata {
