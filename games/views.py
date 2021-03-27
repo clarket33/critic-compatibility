@@ -104,6 +104,11 @@ def criticMatch(request):
 
 	my_games = request.user.gamereview_set.all()
 	compat = dict()
+
+	if(len(my_games) < 8):
+		messages.error(request, f"Running a critic match requires at least 8 games in your inventory")
+		return redirect('games-home')
+
 	
 	for gameR in my_games:
 		
@@ -122,7 +127,7 @@ def criticMatch(request):
 
 	for key in list(compat):
 		#subject to change, sets min mutual games (maybe allow for user input)
-		if compat[key][1] <= 4:
+		if compat[key][1] <= 3:
 			del compat[key]
 			continue
 		compat[key][0] = round(compat[key][0] / compat[key][1], 2)
@@ -154,13 +159,15 @@ def criticMatch(request):
 		print(key, value)
 		
 	'''
-			
+	print(len(profiles))	
+	if(len(profiles) < 4):
+		messages.error(request, f"No Matches found (Tip: More popular games will have more critic reviews)")
+		return redirect('games-home')
 
 	#print(odCompat)
 
 	context = {
 		'compatRanks': odCompat,
-		'gameAmnt': len(request.user.gamereview_set.all()),
 		'criticProfs': profiles
 	}
 
