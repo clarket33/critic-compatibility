@@ -58,12 +58,18 @@ class GameReview(models.Model):
 		return self.game_name + ", " + self.platform + ", " + self.owner.username
 		'''+ ", " + str(self.critic_score) + ", " + self.image_src + ", " + self.game_src'''
 
+	class Meta:
+		unique_together = [['game_name', 'platform', 'owner']]
+
 class CriticProfile(models.Model):
 	critic_name = models.CharField(primary_key = True,max_length=100)
 	critic_src = models.URLField(max_length=300)
 
 	def __str__(self):
 		return self.critic_name
+
+	class Meta:
+		unique_together = [['critic_name']]
 
 class CriticReview(models.Model):
 	game_name = models.CharField(max_length=100)
