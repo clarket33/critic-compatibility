@@ -13,6 +13,7 @@ from django.shortcuts import render, redirect
 from collections import OrderedDict
 from django.template.defaulttags import register
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 
 
 
@@ -40,6 +41,7 @@ class FilteredSearchListView(SingleTableMixin, FilterView):
 #user is adding a game review
 @login_required
 def gameAdd(request, pk):
+
 	#obtain game being added
 	g = get_object_or_404(Game, pk=pk)
 
@@ -60,6 +62,7 @@ def gameAdd(request, pk):
 			form.save()
 			messages.success(request, f"Added '{g.game_name}'!")
 			return redirect('games-search')
+			
 	else:
 		form = GameReviewAddForm(instance=gr)
 	context = {
