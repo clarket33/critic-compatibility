@@ -6,5 +6,5 @@ A Django web app to allow users to review games without knowing their aggregate 
 1. Django (Python, HTML, CSS, SQLite)
 2. BeautifulSoup (Python package) for webscraping Metacritic for game/reviewer data
 
-#Demo Video
-![Demo](https://youtu.be/XQEPD1FPRNs)
+# Demo Video
+[Demo](https://youtu.be/XQEPD1FPRNs "Demo")
