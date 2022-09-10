@@ -138,17 +138,18 @@ def criticMatch(request):
 
 
 
-	odCompat = OrderedDict(sorted(compat.items(), key=lambda x:x[1]))
+	odCompat = OrderedDict(sorted(compat.items(), key=lambda x:(x[1][0], -x[1][1])))
 
 	'''
 	i = 0;
 	for key, value in odCompat.items():
 		if i > 5:
 			break
-		if value[1] >= 5:
+		if value[1] >= 3:
 			print(key, value)
 			i+=1
 	'''
+	
 
 	while len(odCompat) > 10:
 		odCompat.popitem()
@@ -162,7 +163,7 @@ def criticMatch(request):
 		print(key, value)
 		
 	'''
-	print(len(profiles))	
+	#print(len(profiles))	
 	if(len(profiles) < 4):
 		messages.error(request, f"No Matches found (Tip: More popular games will have more critic reviews)")
 		return redirect('games-home')
