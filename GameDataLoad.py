@@ -1,5 +1,8 @@
-from games.models import Game
+from games.models import Game, GameReview
 import csv
+
+Game.objects.all().delete()
+GameReview.objects.all().delete()
 
 file = open("gameData.csv", "r")
 file.readline()
@@ -29,13 +32,25 @@ for line in file:
         str += "0" + dateLine[1]
     else:
         str += dateLine[1]
+        
+    
+    gameName = line[0].strip('\"')
+    releaseDate = str
+    platfrm = line[3].strip('\"')
+    criticScore = line[2].strip('\"')
+    imageSrc = line[4].strip('\"')
+    gameSrc = line[5].strip('\"')
     
     
+    if Game.objects.filter(game_name=gameName).filter(platform=platfrm).filter(release_date=releaseDate).exists():
+        continue    
     
-    game = Game(game_name=line[0].strip('\"') , release_date=str, platform=line[3].strip('\"') , 
-                critic_score=line[2].strip('\"') ,
-                image_src=line[4].strip('\"') , game_src=line[5].strip('\"') )
-    game.save()
+    
+    game = Game(game_name=gameName, release_date=releaseDate, platform=platfrm , 
+                    critic_score=criticScore ,
+                    image_src=imageSrc , game_src=gameSrc )
+    game.save()    
+    
     
     
 

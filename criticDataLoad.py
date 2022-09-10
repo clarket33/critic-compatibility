@@ -1,6 +1,10 @@
 from games.models import CriticProfile, CriticReview
 import csv
 
+
+CriticProfile.objects.all().delete()
+CriticReview.objects.all().delete()
+
 file = open("criticProfs.csv", "r")
 file.readline()
 for line in file:
