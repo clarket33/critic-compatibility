@@ -24,8 +24,9 @@
 				{{ form |crispy  }}
 			</fieldset>
 			<div class="form-group">
+				<input type="hidden" name="next" value="{{ request.GET.next }}">
 				<button class="btn btn-outline-info" type="submit">Add</button>
-				<a href="{% url 'games-search' %}" class="btn btn-outline-dark">Cancel</a>
+				<a href="{{ request.GET.next }}" class="btn btn-outline-dark">Cancel</a>
 			</div>
 		</form>
 	</div>

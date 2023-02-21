@@ -48,8 +48,9 @@ def gameAdd(request, pk):
 	#check if game has already been added
 	if len(GameReview.objects.filter(game_name=g.game_name).filter(platform=g.platform)
 		.filter(owner=request.user)) != 0:
-		messages.error(request, f"You've already scored '{g.game_name}'")
-		return redirect('games-search')
+		next = request.GET.get('next', None)
+		messages.error(request, f"You've already scored '{g.game_name}' - {g.platform}")
+		return redirect(next)
 
 	#convert to a GameReview since that is what it's being saved as
 	gr = GameReview(game_name=g.game_name, release_date=g.release_date, platform=g.platform,
@@ -57,11 +58,12 @@ def gameAdd(request, pk):
 		user_score='')
 
 	if request.method == 'POST':
+		next = request.POST.get('next', '/')
 		form = GameReviewAddForm(request.POST, instance=gr)
 		if form.is_valid():
 			form.save()
 			messages.success(request, f"Added '{g.game_name}'!")
-			return redirect('games-search')
+			return HttpResponseRedirect(next)
 			
 	else:
 		form = GameReviewAddForm(instance=gr)
