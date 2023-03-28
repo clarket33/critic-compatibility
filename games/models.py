@@ -33,36 +33,30 @@ class Game(models.Model):
 	game_name = models.CharField(max_length=100)
 	release_date = models.DateField()
 	platform = models.CharField(max_length=100, choices = PLATFORM_CHOICES)
-	critic_score = models.IntegerField()
+	metascore = models.IntegerField()
 	image_src = models.URLField(max_length=300)
 	game_src = models.URLField(max_length=300)
 
 	def __str__(self):
 		return self.game_name + ", " + self.platform
-		'''+ ", " + str(self.critic_score) + ", " + self.image_src + ", " + self.game_src'''
 
 	class Meta:
 		unique_together = [['game_name', 'platform']]
 
 class GameReview(models.Model):
-	game_name = models.CharField(max_length=100)
-	release_date = models.DateField()
-	platform = models.CharField(max_length=100, choices = PLATFORM_CHOICES)
-	critic_score = models.IntegerField()
-	image_src = models.URLField(max_length=300)
-	game_src = models.URLField(max_length=300)
+	game = models.ForeignKey(Game, on_delete=models.CASCADE)
 	owner = models.ForeignKey(User, on_delete=models.CASCADE)
 	user_score = models.IntegerField()
 
 	def __str__(self):
-		return self.game_name + ", " + self.platform + ", " + self.owner.username
+		return self.game.game_name + ", " + self.game.platform + ", " + self.owner.username
 		'''+ ", " + str(self.critic_score) + ", " + self.image_src + ", " + self.game_src'''
 
 	class Meta:
-		unique_together = [['game_name', 'platform', 'owner']]
+		unique_together = [['game', 'owner']]
 
 class CriticProfile(models.Model):
-	critic_name = models.CharField(primary_key = True,max_length=100)
+	critic_name = models.CharField(max_length=100)
 	critic_src = models.URLField(max_length=300)
 
 	def __str__(self):
@@ -72,14 +66,12 @@ class CriticProfile(models.Model):
 		unique_together = [['critic_name']]
 
 class CriticReview(models.Model):
-	game_name = models.CharField(max_length=100)
-	metascore = models.IntegerField()
+	game = models.ForeignKey(Game, on_delete=models.CASCADE)
 	critic = models.ForeignKey(CriticProfile, on_delete=models.CASCADE)
 	critic_score = models.IntegerField()
-	platform = models.CharField(max_length=100, choices = PLATFORM_CHOICES)
 
 	def __str__(self):
-		return self.game_name + ", " + str(self.metascore) + ", " + self.platform + ", " + self.critic.critic_name
+		return self.game.game_name + ", " + str(self.game.metascore) + ", " + self.game.platform + ", " + self.critic.critic_name
 
 	class Meta:
-		unique_together = [['game_name', 'platform', 'critic']]
+		unique_together = [['game', 'critic']]
