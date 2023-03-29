@@ -1,4 +1,4 @@
-from games.models import CriticProfile, CriticReview
+from games.models import CriticProfile, CriticReview, Game
 import csv
 
 
@@ -20,7 +20,6 @@ file = open("criticScores.csv", "r")
 file.readline()
 for line in file:
     line = [ '"{}"'.format(x) for x in list(csv.reader([line], delimiter=',', quotechar='"'))[0]]
-    #print(line[2].strip('\"'))
     
     cp = CriticProfile.objects.get(critic_name=line[2].strip('\"'))
     gameName = line[0].strip('\"')
@@ -51,14 +50,16 @@ for line in file:
         'xbox':'Xbox',
         'playstation-vita':'PlayStation Vita',
     }
-    
     plat = platKeys[plat]
     
+    if Game.objects.filter(platform=plat).filter(game_name=gameName).exists():
+        game = Game.objects.filter(platform=plat).get(game_name=gameName)
+    else:
+        continue
     
-    if CriticReview.objects.filter(game_name=gameName).filter(critic=cp).filter(platform=plat).exists():
+    if CriticReview.objects.filter(game=game).filter(critic=cp).exists():
         continue
         
-    cr = CriticReview(game_name=gameName, metascore=line[1].strip('\"'), 
-                      critic=cp, critic_score=crit_score, platform=plat)
-  
+    cr = CriticReview(game=game, critic=cp, critic_score=crit_score)
+    
     cr.save()

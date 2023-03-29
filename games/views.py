@@ -46,16 +46,13 @@ def gameAdd(request, pk):
 	g = get_object_or_404(Game, pk=pk)
 
 	#check if game has already been added
-	if len(GameReview.objects.filter(game_name=g.game_name).filter(platform=g.platform)
-		.filter(owner=request.user)) != 0:
+	if len(GameReview.objects.filter(game=g).filter(owner=request.user)) != 0:
 		next = request.GET.get('next', None)
 		messages.error(request, f"You've already scored '{g.game_name}' - {g.platform}")
 		return redirect(next)
 
 	#convert to a GameReview since that is what it's being saved as
-	gr = GameReview(game_name=g.game_name, release_date=g.release_date, platform=g.platform,
-		critic_score=g.critic_score, image_src=g.image_src, game_src=g.game_src, owner=request.user,
-		user_score='')
+	gr = GameReview(game=g, owner=request.user, user_score='')
 
 	if request.method == 'POST':
 		next = request.POST.get('next', '/')
@@ -87,7 +84,7 @@ def deleteGame(request, pk):
 
 	if request.method == "POST":
 		gr.delete()
-		messages.success(request, f"Deleted Score for '{gr.game_name}'!")
+		messages.success(request, f"Deleted Score for '{gr.game.game_name}'!")
 		return redirect('games-home')
 
 	
@@ -117,7 +114,7 @@ def criticMatch(request):
 	
 	for gameR in my_games:
 		
-		for critReview in CriticReview.objects.filter(game_name=gameR.game_name).filter(platform=gameR.platform):
+		for critReview in CriticReview.objects.filter(game=gameR.game):
 			curCrit = critReview.critic.critic_name
 
 			if (curCrit) in compat:

@@ -33,36 +33,36 @@
 			<article class="media content-section" style="margin-left: 85px;">
 				<!--Game Image, title, platform, release date-->
 				<div>
-			  		<img class="article-img" src="{{ gameReview.image_src }}">
+			  		<img class="article-img" src="{{ gameReview.game.image_src }}">
 			  	</div>
 				
 				<div class="article-metadata">
-				  <h4><a class="article-title" href="{{ gameReview.game_src }}" target="_blank">{{ gameReview.game_name }}</a></h4>
+				  <h4><a class="article-title" href="{{ gameReview.game.game_src }}" target="_blank">{{ gameReview.game.game_name }}</a></h4>
 				  <div style="margin-top: -2px;">
-				      <a>{{ gameReview.platform }}</a>
-				      <img src="media/platforms/{{ gameReview.platform }}.png">
-				      <small class="text-muted">{{ gameReview.release_date}}</small>
+				      <a>{{ gameReview.game.platform }}</a>
+				      <img src="media/platforms/{{ gameReview.game.platform }}.png">
+				      <small class="text-muted">{{ gameReview.game.release_date}}</small>
 				  </div>
 				</div>
 				
 				<!--Metacritic score div-->
 				<div style="width: 50%; float:left;">
 				   <h6 class="score-descriptor"><a href="https://www.metacritic.com/about-metascores" target="_blank">Metacritic Score</a></h6>
-				   {% if gameReview.critic_score > 89 %}
+				   {% if gameReview.game.metascore > 89 %}
 				   		<!--Very Light Green-->
-						<p style="color:#89FD6E;" class="review-number">{{ gameReview.critic_score}}</p>
-				   {% elif gameReview.critic_score > 74 %}
+						<p style="color:#89FD6E;" class="review-number">{{ gameReview.game.metascore}}</p>
+				   {% elif gameReview.game.metascore > 74 %}
 				   		<!--Darker Green-->
-				   		<p style="color:#45C313;" class="review-number">{{ gameReview.critic_score}}</p>
-				   {% elif gameReview.critic_score > 49 %}
+				   		<p style="color:#45C313;" class="review-number">{{ gameReview.game.metascore}}</p>
+				   {% elif gameReview.game.metascore > 49 %}
 				   		<!--Yellow-->
-				   		<p style="color:#F6F623;" class="review-number">{{ gameReview.critic_score}}</p>
-				   {% elif gameReview.critic_score > 19 %}
+				   		<p style="color:#F6F623;" class="review-number">{{ gameReview.game.metascore}}</p>
+				   {% elif gameReview.game.metascore > 19 %}
 				   		<!--Very Light Red-->
-				   		<p style="color:#FF0022;" class="review-number">{{ gameReview.critic_score}}</p>
+				   		<p style="color:#FF0022;" class="review-number">{{ gameReview.game.metascore}}</p>
 				   {% else %}
 				   		<!--Darker Red-->
-				   		<p style="color:#CF041F;" class="review-number">{{ gameReview.critic_score}}</p>
+				   		<p style="color:#CF041F;" class="review-number">{{ gameReview.game.metascore}}</p>
 				   {% endif %}
 				</div>
 

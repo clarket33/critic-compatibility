@@ -47,7 +47,7 @@ for line in file:
     
     
     game = Game(game_name=gameName, release_date=releaseDate, platform=platfrm , 
-                    critic_score=criticScore ,
+                    metascore=criticScore ,
                     image_src=imageSrc , game_src=gameSrc )
     game.save()    
     
